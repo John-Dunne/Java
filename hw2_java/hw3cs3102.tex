@@ -1,0 +1,130 @@
+%---------change this every homework
+\def\yourid{njb2b}
+\def\collabs{Dr. Seuss, Batman}
+\def\sources{
+    \textit{The Restaurant at the end of the universe} Adams,
+    \url{https://simple.wikipedia.org/wiki/Al-Khwarizmi}
+    }
+% -----------------------------------------------------
+\def\duedate{Friday March 1, 2019 at 11p}
+\def\duelocation{via Collab}
+\def\hnumber{3}
+\def\prof{Nate Brunelle}
+\def\course{{cs3102 - Theory of Computation - s'19}}%------
+%-------------------------------------
+%-------------------------------------
+
+\documentclass[10pt]{article}
+\usepackage[colorlinks,urlcolor=blue]{hyperref}
+\usepackage[osf]{mathpazo}
+\usepackage{amsmath,amsfonts,graphicx}
+\usepackage{latexsym}
+\usepackage[top=1in,bottom=1.4in,left=1.5in,right=1.5in,centering]{geometry}
+\usepackage{color}
+\definecolor{mdb}{rgb}{0.3,0.02,0.02} 
+\definecolor{cit}{rgb}{0.05,0.2,0.45} 
+\pagestyle{myheadings}
+\markboth{\yourid}{\yourid}
+\usepackage{clrscode}
+\usepackage{url}
+
+\newenvironment{proof}{\par\noindent{\it Proof.}\hspace*{1em}}{$\Box$\bigskip}
+\newcommand{\handout}{
+   \renewcommand{\thepage}{H\hnumber-\arabic{page}}
+   \noindent
+   \begin{center}
+      \vbox{
+    \hbox to \columnwidth {\sc{\course} --- \prof \hfill}
+    \vspace{-2mm}
+    \hbox to \columnwidth {\sc due \MakeLowercase{\duedate} \duelocation\hfill {\Huge\color{mdb}H\hnumber.\yourid}}
+      }
+   \end{center}
+   \vspace*{2mm}
+}
+\newcommand{\solution}[1]{\medskip\noindent\textbf{Solution:}#1}
+\newcommand{\bit}[1]{\{0,1\}^{ #1 }}
+%\dontprintsemicolon
+%\linesnumbered
+\newtheorem{problem}{\sc\color{cit}problem}
+\newtheorem{practice}{\sc\color{cit}practice}
+\newtheorem{lemma}{Lemma}
+\newtheorem{definition}{Definition}
+
+
+\begin{document}
+\thispagestyle{empty}
+\handout
+\paragraph{Collaboration Policy} You are encouraged to collaborate with up to 3 other students, but all work submitted must be your own independently written solution. List the names of all of your collaborators. Do not seek published solutions for any assignments. If you use any published resources when completing this assignment, be sure to cite them. Do not submit a solution that you are unable to explain orally to a member of the course staff.
+
+\paragraph{Submission Format} Your submission to collab should be a single zip file containing:
+\begin{enumerate}
+    \item a pdf of your written solutions
+    \item the tex file used to generate that pdf
+    \item all other items needed to generate the pdf from the tex file (images, etc.)
+    \item all java files provided (with your solutions filled out) 
+\end{enumerate}
+
+%\paragraph{Collaborators} \collabs
+
+%\paragraph{Sources} \sources
+
+%----Begin your modifications here
+
+
+%\begin{wrapfigure}{r}{3in}
+%\epsfig{figure=water-slide-ink,width=3in}
+%\vspace{-30pt}
+%\end{wrapfigure}
+
+\begin{problem} Proofs \end{problem}
+Answer each of the following. You answer should have an accompanying proof or counterexample:
+
+\begin{enumerate}
+    \item We demonstrated in class that the regular languages are closed under union (i.e. when we union 2 regular languages together, the result is regular). What if we union together a countably infinite number of regular languages., is the resulting language guaranteed to be regular? I.e., are the regular languages closed under countably infinite union?
+    \item Is every subset of a regular language necessarily regular?
+\end{enumerate}
+
+\begin{problem} Programming Portion \end{problem}
+
+You have been given a Finite State Automaton simulator implemented in Java. This simulator consists for 9 files:
+\begin{itemize}
+    \item \textbf{Decider.java}: The decider interface. You saw this on HW1
+    \item \textbf{FSA.java}: An abstract class for finite state automata. We will see multiple kinds throughout the semester, which is why this is abstract. It implements Decider.
+    \item \textbf{DFA.java}: A class for simulating Deterministic Finite state Automata. This class implements FSA. All states are Strings in these machines. I would especially like to point out the toDot() method. this will print out a description for your auatomaton using a language called Dot. If you copy and past that into this tool it will show you the automaton you built \url{https://dreampuf.github.io/GraphvizOnline/}. This will likely come in handy for debugging.
+    \item \textbf{Tuple.java}: A class used for the input to the transition function. It contains a state-character pair. The DFA class has a Map which will use Tuples as keys, and the destination state is the value.
+    \item \textbf{DFAClosure.java}: A class containing several implementations of closure properties of regular languages, such as: intersection, union, complementation, and crossproduct construction.
+    \item \textbf{FinalChecker.java}: This interface is used exclusively for determining the final states for a crossproduct construction.
+    \item \textbf{Intersector.java}: Implements FinalChecker. This is used for doing a crossproduct construction for intersection.
+    \item \textbf{Unioner.java}: Implements FinalChecker. This is used for doing a crossproduct construction for union.
+    \item \textbf{SeveralDFAs.java}: A class containing methods for creating automata of several different types. This class has the main method. It also has some of the examples from lecture implemented. All of the code you must provide will be placed here. You will fill in the body for all functions which have a comment including "HOMEWORK".
+\end{itemize}
+
+Each of the functions you must provide have comments explaining what you're expected to do. Here is a summary for your convenience:
+
+\begin{enumerate}
+    \item \textbf{compId}: to implement this function you need to return a DFA which accepts valid UVA computing ids (or a very restricted subset of them at least).
+    \item \textbf{password}: to implement this function you need to return a DFA which accepts all strings that are valid passwords according to some provided rules.
+    \item \textbf{hammingDistance}: the Hamming Distance between two strings is the minimum number of single character substitutions required to convert one string into the other. For this function you will take as parameters a string and a distance. It will return an automaton which accepts all other strings within the given Hamming Distance of the parameter string.
+\end{enumerate}
+
+I expect some guidance on the Hamming Distance automaton will be welcomed. The general idea for how this works is to have an automaton with states arranged in a grid. The column of a state represents how many characters of the string you've read so far, so the number of columns is equal to the length of the parameter string plus 1 (one column for each value 0-length). You advance one column every transition. The row of a state represents the total amount of distance ``accumulated'' thus far, so the number of rows is equal to the allowable distance plus a (one row for each value 0-distance). Every time the input string has a character which does not match that of the parameter string you move up one row. 
+If the two strings are different lengths, you cannot cannot convert from one to another using single character substitutions alone, and thus they have Hamming Distance of infinity. Strings with a length different from the parameter string should always be rejected.
+
+Below in Figure~\ref{fig:hamming} I have included an example Hamming distance Automaton over the alphabet $\{a,g,t,c\}$ (i.e. DNA bases, as comparing sections of DNA is one of the most common applications of Hamming Distance) for the string $aaaa$ and distance $2$.
+
+\begin{figure}
+    \centering
+    \includegraphics[scale=0.4]{hamming.png}
+    \caption{A Hamming distance automaton for the string $aaaa$ and distance $2$. Progess rightward through the states occurs as more characters are read. Progress upward occurs as substitutions are accumulated. Reading too few characters, reading too many characters, or accumulating too many substitutions will cause a string to be rejected. Strings are accepted if they are the same length as the parameter string (in this case 4), and if there are no more than 2 substitutions total.}
+    \label{fig:hamming}
+\end{figure}
+
+\begin{problem} Extra Credit \end{problem}
+Note: this is not due with the homework, submit to the extra credit email at any point before the extra credit deadline.
+
+As an extra credit opportunity you may implement a function in the DFA class which returns the number of total strings in the language of that automaton. As a hint for how to approach this, a DFA accepts an infinite number of strings if and only if there is a cycle in the states along a path to a final state.
+
+
+
+
+\end{document}
